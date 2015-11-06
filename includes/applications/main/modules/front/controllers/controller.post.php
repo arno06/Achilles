@@ -9,9 +9,9 @@ namespace app\main\controllers\front
     use core\application\Autoload;
     use core\application\Core;
     use core\application\Go;
+    use core\application\Header;
     use core\data\SimpleJSON;
     use core\tools\form\Form;
-    use core\tools\Request;
 
     class post extends AchillesController
     {
@@ -31,12 +31,14 @@ namespace app\main\controllers\front
                 Go::to404();
             }
 
+            $m = new ModelPost();
+
             $form = new Form("post_submit");
             if($form->isValid())
             {
                 $v = $form->getValues();
-                //@todo insert post
-                trace_r($v);
+                $insertedPermalink = $m->submit($v);
+                Header::location('post/'.$insertedPermalink);
             }
             else
             {

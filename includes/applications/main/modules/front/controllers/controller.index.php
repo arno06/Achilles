@@ -2,6 +2,7 @@
 namespace app\main\controllers\front
 {
 
+    use app\main\models\ModelPost;
     use app\main\src\application\AchillesController;
 
     class index extends AchillesController
@@ -14,6 +15,10 @@ namespace app\main\controllers\front
         public function index()
         {
             $this->setTitle('Achilles');
+
+            $m = new ModelPost();
+
+            $this->addContent('posts', $m->getPostsByDay());
         }
     }
 }

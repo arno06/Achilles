@@ -53,9 +53,13 @@ header menu>li>a{padding:0 5px;}
 #content .form form .component{margin-bottom:10px;}
 #content .form form .component.submit{text-align: center;}
 #content .form form textarea, #content .form form input[type="text"], #content .form form input[type="password"]{width:90%;margin:0 auto;display:block;padding:10px;}
-#content .form form textarea{min-height:200px;resize: vertical;}
+#content .form form textarea{min-height:100px;resize: vertical;}
 #content .form form input[type="submit"]{border:none;padding:10px;background:#217ebd;color:#fff;font-weight:normal;cursor: pointer;}
 #content .form .reminder{text-align: center;}
+
+#content .form #submit_images_list{overflow:auto;width:calc(90% + 20px);margin:0 auto;}
+#content .form #submit_images_list img{border:solid 4px transparent;display:inline-block;max-height:100px;cursor:pointer;}
+#content .form #submit_images_list img.selected{border-color: #2ecc71;}
 
 
 #content .not_found{max-width:600px;text-align: center;border-top:1px #eee solid;border-bottom:1px #eee solid;padding:10px 0;margin:10px auto;}

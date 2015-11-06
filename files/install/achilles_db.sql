@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `main_post` (
   `added_date_post` datetime NOT NULL,
   `status_post` int(1) NOT NULL,
   `permalink_post` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `url_image_post` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_post`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -82,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `main_user` (
 --
 
 INSERT INTO `main_user` (`id_user`, `login_user`, `password_user`, `permissions_user`, `pseudo_user`, `bio_user`) VALUES
-(1, 'root', '7de630b67016a8b78b28c93f1e24c8f6', 7, 'root', 'WOot');
+(1, 'arno06@gmail.com', '7de630b67016a8b78b28c93f1e24c8f6', 7, 'root', 'WOot');
 
 -- --------------------------------------------------------
 
