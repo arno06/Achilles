@@ -8,12 +8,12 @@ namespace app\main\controllers\front
     {
         public function __construct()
         {
-
+            parent::__construct();
         }
 
         public function index()
         {
-            $this->setTitle('Achilles demo - \o/');
+            $this->setTitle('Achilles');
         }
     }
 }

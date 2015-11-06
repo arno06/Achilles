@@ -34,15 +34,17 @@
 			<menu id="auth">
 			{if $user_is.USER}
 				<li>
-					<span><img src="profil/{$content.user_data.pseudo_user}/avatar">{$content.user_data.pseudo_user}</span>
+					<span class="whois"><span><img src="profil/{$content.user_data.pseudo_user}/avatar"></span>{$content.user_data.pseudo_user}</span>
 					<ul>
 						<li><a href="profil/{$content.user_data.pseudo_user}">Public profil</a></li>
 						<li><a href="profil/{$content.user_data.pseudo_user}/edit">Edit my profil</a></li>
-						<li><a href="">Sign Out</a></li>
+						<li><a href="sign-out">Sign Out</a></li>
 					</ul>
 				</li>
-				<li><a href="submit">Post</a></li>
+				<li><a href="submit">Submit</a></li>
+				{if $user_is.ADMIN}
 				<li><a href="admin">Dashboard</a></li>
+				{/if}
 			{else}
 				<li><a href="register">Register</a></li>
 				<li><a href="sign-in">Sign In</a></li>

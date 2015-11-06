@@ -9,13 +9,16 @@ a:hover{color:#217ebd;}
 header{display:flex;justify-content: space-between;border-bottom:solid 1px #ddd;height:60px;}
 header a{text-decoration: none;color:#333;font-weight: normal;}
 header menu{margin:0;padding:0;height:60px;}
-header menu>li{display:inline-block;padding:0;margin:0;list-style: none;position:relative;height:60px;line-height: 60px;}
+header menu>li{display:inline-block;padding:0;margin:0;list-style: none;height:60px;line-height: 60px;}
 header menu li span{cursor:pointer;display: inline-block;padding:0 5px;}
-header menu li ul{display:none;margin:-10px 0 0;padding:0;position:absolute;border:solid 1px #ddd;background:#fff;min-width:100%;}
-header menu li ul li{}
+header menu li ul{display:none;margin:-10px 5px 0;padding:0;position:absolute;background:#fff;border:solid 1px #eee;list-style: none;text-align: left;}
+header menu li ul li{margin:0;padding:0;line-height: 35px;}
+header menu li ul li a{display:block;padding: 0 10px}
 header menu li:hover ul{display:block;}
 header menu#category{width:30%;padding-left:10px;}
 header menu#auth{width:30%;text-align: right;padding-right:10px;}
+header menu#auth span.whois span{height:60px;display:inline-block;overflow:hidden;vertical-align: middle;pointer-events: none;}
+header menu#auth span.whois span img{height:50px; vertical-align: middle;margin-left:5px;margin-top:-7px;}
 header menu>li>a,header #logo a{display:inline-block;height:60px;line-height: 60px;}
 header #logo a{font-weight:bold;}
 header menu>li>a{padding:0 5px;}
@@ -49,7 +52,8 @@ header menu>li>a{padding:0 5px;}
 #content .form form .mandatory{text-align: right;font-size:12px;}
 #content .form form .component{margin-bottom:10px;}
 #content .form form .component.submit{text-align: center;}
-#content .form form input[type="text"], #content .form form input[type="password"]{width:90%;margin:0 auto;display:block;padding:10px;}
+#content .form form textarea, #content .form form input[type="text"], #content .form form input[type="password"]{width:90%;margin:0 auto;display:block;padding:10px;}
+#content .form form textarea{min-height:200px;resize: vertical;}
 #content .form form input[type="submit"]{border:none;padding:10px;background:#217ebd;color:#fff;font-weight:normal;cursor: pointer;}
 #content .form .reminder{text-align: center;}
 

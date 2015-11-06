@@ -4,6 +4,7 @@ namespace core\application
 	use core\tools\form\Form;
     use core\application\event\EventDispatcher;
 	use Smarty;
+    use core\application\Authentication\AuthenticationHandler;
 
 	/**
 	 * Controller de base
@@ -121,6 +122,7 @@ namespace core\application
 		public function getGlobalVars()
 		{
 			$is = array();
+            /** @var AuthenticationHandler $authHandler */
             $authHandler = Application::getInstance()->authenticationHandler;
             foreach($authHandler::$permissions as $name=>$value)
                 $is[$name] = $authHandler::$data&&$authHandler::is($name);

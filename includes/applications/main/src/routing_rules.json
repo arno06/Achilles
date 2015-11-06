@@ -17,6 +17,14 @@
 				"action":"sign_in"
 			}
 		},
+		"sign-out":
+		{
+			"GET":
+			{
+				"controller":"user",
+				"action":"sign_out"
+			}
+		},
 		"register":
 		{
 			"GET|POST":
@@ -25,28 +33,68 @@
 				"action":"register"
 			}
 		},
-		"{$controller}/":
+		"submit":
 		{
-			"parameters":
+			"GET|POST":
 			{
-				"controller":"[a-zA-Z0-9\\-]+"
-			},
-			"*":
-			{
-				"action":"index"
+				"controller":"post",
+				"action":"submit"
 			}
 		},
-		"{$controller}/{$action}/":
+		"post/scrap":
+		{
+			"GET|POST":
+			{
+				"controller":"post",
+				"action":"scrap"
+			}
+		},
+		"post/{$permalink}":
 		{
 			"parameters":
 			{
-				"controller":"[a-zA-z0-9\\-]+",
-				"action":"[a-zA-z0-9\\-]+"
+				"permalink":"[a-zA-Z0-9\\-\\_]{16}"
 			},
-			"*":
+			"GET|POST":
 			{
-				"controller":"{$controller}",
-				"action":"{$action}"
+				"controller":"post",
+				"action":"view"
+			}
+		},
+		"profil/{$pseudo_user}":
+		{
+			"parameters":
+			{
+				"pseudo_user":"[a-zA-Z0-9\\_\\-]+"
+			},
+			"GET":
+			{
+				"controller":"user",
+				"action":"profil"
+			}
+		},
+		"profil/{$pseudo_user}/avatar":
+		{
+			"parameters":
+			{
+				"pseudo_user":"[a-zA-Z0-9\\_\\-]+"
+			},
+			"GET":
+			{
+				"controller":"user",
+				"action":"avatar"
+			}
+		},
+		"profil/{$pseudo_user}/edit":
+		{
+			"parameters":
+			{
+				"pseudo_user":"[a-zA-Z0-9\\_\\-]+"
+			},
+			"GET|POST":
+			{
+				"controller":"user",
+				"action":"edit"
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 			"modules":{
 				"front": {
 					"useRoutingFile":true,
-					"defaultController":"core\\application\\DefaultController",
+					"defaultController":"app\\main\\src\\application\\AchillesController",
 					"action404":"not_found"
 				}
 			}

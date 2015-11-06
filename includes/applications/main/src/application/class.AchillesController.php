@@ -1,22 +1,24 @@
 <?php
 namespace app\main\src\application{
 
+    use core\application\Application;
     use core\application\Authentication\AuthenticationHandler;
     use core\application\DefaultController;
+    use core\application\Go;
 
     class AchillesController extends DefaultController
     {
         public function __construct()
         {
-
-        }
-
-        public function render($pDisplay = true)
-        {
+            /** @var AuthenticationHandler $auth */
+            $auth = Application::getInstance()->authenticationHandler;
+            $auth::getInstance();
             $this->addContent('user_data', AuthenticationHandler::$data);
-            return parent::render($pDisplay);
         }
 
-
+        public function not_found()
+        {
+            $this->setTemplate(null, null, 'template.404.tpl');
+        }
     }
 }

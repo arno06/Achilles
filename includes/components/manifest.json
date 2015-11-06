@@ -77,5 +77,13 @@
         [
             "pikaday/pikaday.js"
         ]
-    }
+    },
+	"Achilles.submit":
+	{
+		"need":["Request"],
+		"javascript":
+		[
+			"achilles/Submit.js"
+		]
+	}
 }

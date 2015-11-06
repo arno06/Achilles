@@ -3,7 +3,7 @@
 	{
 		"label":"Email",
 		"require":true,
-		"regExp":"mail",
+		"regExp":"Mail",
 		"tag":"input",
 		"attributes":
 		{
@@ -15,7 +15,7 @@
 	{
 		"label":"Password",
 		"require":true,
-		"regExp":"textNoHtml",
+		"regExp":"TextNoHtml",
 		"tag":"input",
 		"attributes":
 		{

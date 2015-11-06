@@ -4,12 +4,19 @@ namespace app\main\controllers\front
 
     use app\main\src\application\AchillesController;
     use core\application\Application;
+    use core\application\Authentication\AuthenticationHandler;
+    use core\application\Core;
     use core\application\Go;
+    use core\application\Header;
+    use core\system\File;
     use core\tools\form\Form;
     use core\utils\Logs;
 
     class user extends AchillesController
     {
+
+        const DEFAULT_AVATAR = "files/uploads/avatars/default.jpg";
+
         public function __construct()
         {
             parent::__construct();
@@ -17,6 +24,7 @@ namespace app\main\controllers\front
 
         public function register()
         {
+            $this->setTitle("Register");
             //todo redirect if logged
 
             $f = new Form('register');
@@ -37,6 +45,8 @@ namespace app\main\controllers\front
 
         public function sign_in()
         {
+            $this->setTitle("Sign in");
+
             //todo redirect if logged
 
             $authHandler = Application::getInstance()->authenticationHandler;
@@ -47,13 +57,13 @@ namespace app\main\controllers\front
             {
                 $data = $f->getValues();
                 $authHandlerInst = call_user_func_array(array($authHandler, 'getInstance'), array());
-                if($authHandlerInst->setUserSession($data["login"], $data["mdp"]))
+                if($authHandlerInst->setUserSession($data["login_user"], $data["password_user"]))
                 {
                     Go::to();
                 }
                 else
                 {
-                    Logs::write("Tentative de connexion au front <".$data["login"].":".$data["mdp"].">", Logs::WARNING);
+                    Logs::write("Tentative de connexion au front <".$data["login_user"].":".$data["password_user"].">", Logs::WARNING);
                     $this->addContent("error", "Le login ou le mot de passe est incorrect");
                 }
             }
@@ -69,7 +79,18 @@ namespace app\main\controllers\front
 
         public function sign_out()
         {
-            //todo handle session then redirect
+            /** @var AuthenticationHandler $auth */
+            $auth = Application::getInstance()->authenticationHandler;
+            $auth::getInstance()->unsetUserSession();
+            Go::to();
+        }
+
+        public function avatar()
+        {
+            $mime = File::getMimeType(self::DEFAULT_AVATAR);
+            Header::content_type($mime);
+            echo file_get_contents(self::DEFAULT_AVATAR);
+            Core::endApplication();
         }
     }
 }

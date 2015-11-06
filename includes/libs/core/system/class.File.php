@@ -166,7 +166,7 @@ namespace core\system
 
 		/**
 		 * Méthode de récupération du MimType d'un fichier &agrave; partir de son nom
-		 * @param object $pFile		Nom du fichier - peut être le chemin relatif ou absolu de celui-ci
+		 * @param string $pFile		Nom du fichier - peut être le chemin relatif ou absolu de celui-ci
 		 * @return String
 		 */
 		static public function getMimeType($pFile)
