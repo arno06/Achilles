@@ -90,7 +90,8 @@ namespace app\main\models
 
             $cond = Query::condition()->andWhere('added_date_post', Query::LOWER_EQUAL, $pFirstDay.' 23:59:59')
                 ->andWhere('added_date_post', Query::UPPER, 'DATE_SUB("'.$pFirstDay.'", INTERVAL '.$pDaysCount.' DAY)', false)
-                ->andWhere('status_post', Query::EQUAL, 1);
+                ->andWhere('status_post', Query::EQUAL, 1)
+                ->order('added_date_post', 'DESC');
 
             if(!is_null($pCat))
             {
