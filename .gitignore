@@ -1,6 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 
 *.tpl.php
+includes/applications/setup.json
+includes/applications/dev.config.json
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
