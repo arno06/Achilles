@@ -2,9 +2,8 @@
 namespace app\main\src\application{
 
     use core\application\Application;
-    use core\application\Authentication\AuthenticationHandler;
+    use core\application\authentication\AuthenticationHandler;
     use core\application\DefaultController;
-    use core\application\Go;
 
     class AchillesController extends DefaultController
     {
