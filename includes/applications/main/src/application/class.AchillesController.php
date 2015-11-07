@@ -1,9 +1,11 @@
 <?php
 namespace app\main\src\application{
 
+    use app\main\models\ModelCategory;
     use core\application\Application;
     use core\application\authentication\AuthenticationHandler;
     use core\application\DefaultController;
+    use core\db\Query;
 
     class AchillesController extends DefaultController
     {
@@ -13,6 +15,8 @@ namespace app\main\src\application{
             $auth = Application::getInstance()->authenticationHandler;
             $auth::getInstance();
             $this->addContent('user_data', AuthenticationHandler::$data);
+            $m = new ModelCategory();
+            $this->addContent('categories', $m->all(Query::condition()->order('name_category', 'ASC')));
         }
 
         public function not_found()

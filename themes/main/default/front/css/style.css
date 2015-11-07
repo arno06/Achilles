@@ -1,12 +1,12 @@
 *{font-family: Lato, Arial, sans-serif;}
 body, html{width:100%;height:100%;margin:0; padding:0;}
-body{}
+body{background:#eee;}
 
 a{color:#000;font-weight:bold;text-decoration:none;}
 a:hover{color:#217ebd;}
 
 #global{}
-header{display:flex;justify-content: space-between;border-bottom:solid 1px #ddd;height:60px;}
+header{display:flex;justify-content: space-between;border-bottom:solid 1px #ddd;height:60px;background:#fff;box-shadow:0 1px 2px rgba(0, 0, 0, .1);}
 header a{text-decoration: none;color:#333;font-weight: normal;}
 header menu{margin:0;padding:0;height:60px;}
 header menu>li{display:inline-block;padding:0;margin:0;list-style: none;height:60px;line-height: 60px;}
@@ -20,7 +20,7 @@ header menu#auth{width:30%;text-align: right;padding-right:10px;}
 header menu#auth span.whois span{height:60px;display:inline-block;overflow:hidden;vertical-align: middle;pointer-events: none;}
 header menu#auth span.whois span img{height:50px; vertical-align: middle;margin-left:5px;margin-top:-7px;}
 header menu>li>a,header #logo a{display:inline-block;height:60px;line-height: 60px;}
-header #logo a{font-weight:bold;}
+header #logo a{font-weight:bold;font-size:25px;color:#217ebd;}
 header menu>li>a{padding:0 5px;}
 
 #content{max-width:960px;margin:0 auto;}
@@ -30,21 +30,25 @@ header menu>li>a{padding:0 5px;}
 #content .posts{}
 #content .posts .day{margin-bottom:20px;}
 #content .posts .day a{text-decoration:none;font-weight: normal;}
-#content .posts .day .post{display:flex;padding:5px;}
+#content .posts .day .post{display:flex;padding:10px;background:#fff;box-shadow:0 1px 2px rgba(0, 0, 0, .1);}
 #content .posts .day .post:hover{background:#fafafa;}
-#content .posts .day .post .vote{width:20px;flex-grow: 0;flex-shrink: 0;margin-right:10px;}
-#content .posts .day .post .vote a{}
+#content .posts .day .post .vote{width:26px;flex-grow: 0;flex-shrink: 0;margin-right:10px;}
+#content .posts .day .post .vote a{width:20px;height:20px;display:block;background: #8e8e8e;padding:2px;border-radius:50%;overflow:hidden;box-shadow:0 1px 2px rgba(0, 0, 0, .1);margin-top:16px;}
+#content .posts .day .post .vote a:hover{background:#217ebd;transition:background .3s;}
+#content .posts .day .post .vote a span{width:16px;height:16px;display:block;background:url('../imgs/glyphicons-halflings-white.png') no-repeat;margin:2px;}
+#content .posts .day .post .vote a.up span{background-position:-286px -119px;}
+#content .posts .day .post .vote a.down span{background-position:-311px -119px;}
 #content .posts .day .post .thumbnail{flex-grow: 0;flex-shrink: 0;width:160px;margin-right:10px;}
 #content .posts .day .post .thumbnail img{width:100%;}
 #content .posts .day .post .details{flex-grow: 1;flex-shrink: 1;}
-#content .posts .day .post .details h3{text-align: left;}
+#content .posts .day .post .details h3{text-align: left;margin:0;font-size:18px;}
 #content .posts .day .post .details h3 a{color:#444;}
 #content .posts .day .post .details h3 a:hover{color:#217ebd;}
-#content .posts .day .post .details ul.categories{margin:0;padding:0;}
+#content .posts .day .post .details ul.categories{margin:0;padding:12px 0;}
 #content .posts .day .post .details ul.categories li{display:inline;margin:0;padding:0;}
 #content .posts .day .post .details ul.categories li a{display:inline-block;border:solid 2px #eee;color:#555;font-size:12px;padding:3px 4px;border-radius:2px;}
 #content .posts .day .post .details ul.categories li a:hover{border-color: #217ebd;color:#217ebd;}
-#content .posts .day .empty{padding:10px;text-align: center;border:solid 1px #eee;color:#999;font-style:italic;}
+#content .posts .day .empty{padding:10px;text-align: center;border:solid 1px #eee;color:#999;font-style:italic;background:#fff;box-shadow:0 1px 2px rgba(0, 0, 0, .2);}
 
 #content .form{max-width:600px;margin:0 auto;}
 #content .form .error{text-align: center;font-size:14px;}
@@ -61,6 +65,12 @@ header menu>li>a{padding:0 5px;}
 #content .form #submit_images_list img{border:solid 4px transparent;display:inline-block;max-height:100px;cursor:pointer;}
 #content .form #submit_images_list img.selected{border-color: #2ecc71;}
 
+#content #view_post{padding-top:20px;}
+#content #view_post .intro{display:flex;padding:10px;background:#fff;box-shadow:0 1px 2px rgba(0, 0, 0, .1);}
+#content #view_post .intro div{display:block;width:160px;flex-grow: 0;}
+#content #view_post .intro div img{width:100%;}
+#content #view_post .intro h1{margin:0;}
+#content #view_post .resume{padding:10px;background:#fff;box-shadow:0 1px 2px rgba(0, 0, 0, .1);}
 
 #content .not_found{max-width:600px;text-align: center;border-top:1px #eee solid;border-bottom:1px #eee solid;padding:10px 0;margin:10px auto;}
 

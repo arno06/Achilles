@@ -1,5 +1,4 @@
 {if !$request_async}{include file="includes/template.head.tpl"}{/if}
-<h1>Hello world</h1>
 <div class="posts">
 	{foreach from=$content.posts item="posts" key="day"}
 		<div class="day">
@@ -7,8 +6,8 @@
 			{foreach from=$posts item="post"}
 				<div class="post">
 					<div class="vote">
-						<a href="">up</a>
-						<a href="">down</a>
+						<a href="" title="Kudo to that" class="up"><span></span></a>
+						<a href="" title="Oh my god no!" class="down"><span></span></a>
 					</div>
 					<div class="thumbnail">
 						<a href="post/{$post.permalink_post}"><img src="{$post.url_image_post}" alt="default image"></a>
@@ -16,8 +15,9 @@
 					<div class="details">
 						<h3><a href="{$post.url_post}" target="_blank">{$post.title_post}</a></h3>
 						<ul class="categories">
-							<li><a href="?cat=foo">Foo</a></li>
-							<li><a href="?cat=bar">Bar</a></li>
+							{foreach from=$post.categories item="cat"}
+							<li><a href="?cat={$cat.permalink_category}">{$cat.name_category}</a></li>
+							{/foreach}
 						</ul>
 					</div>
 				</div>

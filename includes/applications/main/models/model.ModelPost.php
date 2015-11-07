@@ -14,6 +14,11 @@ namespace app\main\models
             parent::__construct("main_post", "id_post");
         }
 
+        public function oneByPermalink($pPermalink)
+        {
+            return $this->one(Query::condition()->andWhere("permalink_post", Query::EQUAL, $pPermalink));
+        }
+
         public function submit($pData)
         {
             $pData['added_date_post'] = "NOW()";
@@ -78,14 +83,23 @@ namespace app\main\models
             return $data;
         }
 
-        public function getPostsByDay($pDaysCount = 7, $pFirstDay = null)
+        public function getPostsByDay($pCat = null, $pDaysCount = 7, $pFirstDay = null)
         {
             if($pFirstDay == null)
                 $pFirstDay = date('Y-m-d');
 
-            $posts = $this->all(Query::condition()->andWhere('added_date_post', Query::LOWER_EQUAL, $pFirstDay.' 23:59:59')
-                                ->andWhere('added_date_post', Query::UPPER, 'DATE_SUB("'.$pFirstDay.'", INTERVAL '.$pDaysCount.' DAY)', false)
-                                ->andWhere('status_post', Query::EQUAL, 1));
+            $cond = Query::condition()->andWhere('added_date_post', Query::LOWER_EQUAL, $pFirstDay.' 23:59:59')
+                ->andWhere('added_date_post', Query::UPPER, 'DATE_SUB("'.$pFirstDay.'", INTERVAL '.$pDaysCount.' DAY)', false)
+                ->andWhere('status_post', Query::EQUAL, 1);
+
+            if(!is_null($pCat))
+            {
+                $this->addJoinOnSelect('post_category b', ' JOIN ', 'main_post.id_post = b.id_post');
+                $this->addJoinOnSelect('main_category c', ' JOIN ', 'c.id_category = b.id_category');
+                $cond->andWhere('c.permalink_category', Query::EQUAL, $pCat);
+            }
+
+            $posts = $this->all($cond, 'main_post.*');
 
             $days = array();
             foreach($posts as $p)
@@ -107,5 +121,20 @@ namespace app\main\models
             }
             return $days;
         }
+
+        public function all($pCond = null, $pFields = "*")
+        {
+            $all = parent::all($pCond, $pFields);
+            foreach($all as &$post)
+            {
+                $post['categories'] = Query::select('b.*', 'post_category a')
+                                        ->join('main_category b', Query::JOIN_INNER, 'a.id_category=b.id_category')
+                                        ->andWhere('a.id_post', Query::EQUAL, $post['id_post'])
+                                        ->execute();
+            }
+            return $all;
+        }
+
+
     }
 }

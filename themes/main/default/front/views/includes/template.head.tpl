@@ -24,12 +24,14 @@
 				<li>
 					<span>Categories</span>
 					<ul>
-						<li><a href="?cat=foo">Foo</a></li>
+						{foreach from=$content.categories item="cat"}
+							<li><a href="?cat={$cat.permalink_category}">{$cat.name_category}</a></li>
+						{/foreach}
 					</ul>
 				</li>
 			</menu>
 			<div id="logo">
-				<a href="./">Achilles Demo</a>
+				<a href="./">Achilles</a>
 			</div>
 			<menu id="auth">
 			{if $user_is.USER}

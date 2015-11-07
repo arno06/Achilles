@@ -52,6 +52,13 @@ namespace app\main\controllers\front
         {
             if(!Core::checkRequiredGetVars("permalink"))
                 Go::to404();
+
+            $m = new ModelPost();
+            $post = $m->oneByPermalink($_GET["permalink"]);
+
+            $this->setTitle($post['title_post']);
+
+            $this->addContent("post", $post);
         }
 
         public function scrap()
@@ -77,6 +84,12 @@ namespace app\main\controllers\front
             }
 
             Core::performResponse(SimpleJSON::encode($return), "json");
+        }
+
+        public function out()
+        {
+            if(!Core::checkRequiredGetVars("permalink"))
+                Go::to404();
         }
     }
 }
