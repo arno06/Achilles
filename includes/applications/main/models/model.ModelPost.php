@@ -25,7 +25,27 @@ namespace app\main\models
             $pData['id_user'] = AuthenticationHandler::$data['id_user'];
             $pData['status_post'] = 1;
             $pData['permalink_post'] = $this->generatePermalink();
+            $id_tags = array();
+            if(isset($pData['tags_post']))
+            {
+                $tags = explode(",",$pData['tags_post']);
+                if(!empty($tags))
+                {
+                    foreach($tags as &$t)
+                    {
+                        $t = trim($t);
+                    }
+                    $m = new ModelCategory();
+                    $id_tags = $m->prepareCategories($tags);
+                }
+                unset($pData['tags_post']);
+            }
             $this->insert($pData);
+            $id = $this->getInsertId();
+            foreach($id_tags as $i)
+            {
+                Query::insert(array('id_post'=>$id, 'id_category'=>$i))->into('post_category')->execute();
+            }
             return $pData['permalink_post'];
         }
 

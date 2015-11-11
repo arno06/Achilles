@@ -33,6 +33,16 @@
 			"disabled": "disabled"
 		}
 	},
+	"tags_post":
+	{
+		"label":"Categories (, separated)",
+		"require":false,
+		"tag":"input",
+		"attributes":
+		{
+			"type":"text"
+		}
+	},
 	"url_image_post":
 	{
 		"tag":"input",
