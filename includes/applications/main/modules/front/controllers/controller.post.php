@@ -20,9 +20,9 @@ namespace app\main\controllers\front
             parent::__construct();
         }
 
-        public function submit()
+        public function share()
         {
-            Autoload::addComponent("Achilles.submit");
+            Autoload::addComponent("Achilles.share");
             $this->setTitle("Submit a link");
             /** @var AuthenticationHandler $auth */
             $auth = Application::getInstance()->authenticationHandler;
@@ -33,11 +33,11 @@ namespace app\main\controllers\front
 
             $m = new ModelPost();
 
-            $form = new Form("post_submit");
+            $form = new Form("post_share");
             if($form->isValid())
             {
                 $v = $form->getValues();
-                $insertedPermalink = $m->submit($v);
+                $insertedPermalink = $m->share($v);
                 Header::location('post/'.$insertedPermalink);
             }
             else
@@ -45,7 +45,18 @@ namespace app\main\controllers\front
                 $this->addContent("error", $form->getError());
             }
 
-            $this->addForm("submit", $form);
+            $this->addForm("share", $form);
+        }
+
+        public function out()
+        {
+            if(!Core::checkRequiredGetVars("permalink"))
+                Go::to404();
+
+            $m = new ModelPost();
+            $post = $m->oneByPermalink($_GET["permalink"]);
+
+            Header::location($post['url_post']);
         }
 
         public function view()
@@ -84,12 +95,6 @@ namespace app\main\controllers\front
             }
 
             Core::performResponse(SimpleJSON::encode($return), "json");
-        }
-
-        public function out()
-        {
-            if(!Core::checkRequiredGetVars("permalink"))
-                Go::to404();
         }
     }
 }

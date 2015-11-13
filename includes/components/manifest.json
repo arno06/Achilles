@@ -78,12 +78,12 @@
             "pikaday/pikaday.js"
         ]
     },
-	"Achilles.submit":
+	"Achilles.share":
 	{
 		"need":["Request"],
 		"javascript":
 		[
-			"achilles/Submit.js"
+			"achilles/Share.js"
 		]
 	}
 }

@@ -1,9 +1,9 @@
 (function(){
-    var id_url_input = "#inp_post_submit_url_post";
-    var id_title_input = "#inp_post_submit_title_post";
-    var id_text_input = "#inp_post_submit_text_post";
-    var id_url_image_input = "#inp_post_submit_url_image_post";
-    var selector_image_container = ".component.inp_post_submit_url_image_post.hidden";
+    var id_url_input = "#inp_post_share_url_post";
+    var id_title_input = "#inp_post_share_title_post";
+    var id_text_input = "#inp_post_share_text_post";
+    var id_url_image_input = "#inp_post_share_url_image_post";
+    var selector_image_container = ".component.inp_post_share_url_image_post.hidden";
 
     var url_scrap = "post/scrap";
 
@@ -60,11 +60,11 @@
         if(data.images)
         {
             var container = document.querySelector(selector_image_container);
-            var block = document.querySelector("#submit_images_list");
+            var block = document.querySelector("#share_images_list");
             if(!block)
             {
                 block = document.createElement('div');
-                block.setAttribute("id", "submit_images_list");
+                block.setAttribute("id", "share_images_list");
                 block.classList.add('images_list');
                 container.appendChild(block);
             }

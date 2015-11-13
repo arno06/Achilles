@@ -43,7 +43,7 @@
 						<li><a href="sign-out">Sign Out</a></li>
 					</ul>
 				</li>
-				<li><a href="submit">Submit</a></li>
+				<li><a href="share">Share</a></li>
 				{if $user_is.ADMIN}
 				<li><a href="admin">Dashboard</a></li>
 				{/if}

@@ -5,20 +5,23 @@
 			<h2>{$day}</h2>
 			{foreach from=$posts item="post"}
 				<div class="post">
-					<div class="vote">
-						<a href="" title="Kudo to that" class="up"><span></span></a>
-						<a href="" title="Oh my god no!" class="down"><span></span></a>
-					</div>
+					{*<div class="vote">*}
+						{*<a href="" title="Kudo to that" class="up"><span></span></a>*}
+						{*<a href="" title="Oh my god no!" class="down"><span></span></a>*}
+					{*</div>*}
 					<div class="thumbnail">
-						<a href="post/{$post.permalink_post}"><img src="{$post.url_image_post}" alt="default image"></a>
+						<a href="post/{$post.permalink_post}/out"><img src="{$post.url_image_post}" alt="default image"></a>
 					</div>
 					<div class="details">
-						<h3><a href="{$post.url_post}" target="_blank">{$post.title_post}</a></h3>
+						<h3><a href="post/{$post.permalink_post}/out" target="_blank">{$post.title_post}</a></h3>
 						<ul class="categories">
 							{foreach from=$post.categories item="cat"}
 							<li><a href="?cat={$cat.permalink_category}">{$cat.name_category}</a></li>
 							{/foreach}
 						</ul>
+					</div>
+					<div class="users">
+						<a href="post/{$post.permalink_post}"><img src="profil/{$post.id_user}/avatar"></a>
 					</div>
 				</div>
 			{foreachelse}

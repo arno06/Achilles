@@ -1,6 +1,8 @@
 <?php
 namespace app\main\models
 {
+
+    use app\main\src\tools\SimpleScraper;
     use core\application\Authentication\AuthenticationHandler;
     use core\application\BaseModel;
     use core\db\Query;
@@ -12,6 +14,7 @@ namespace app\main\models
         public function __construct()
         {
             parent::__construct("main_post", "id_post");
+            $this->addJoinOnSelect('main_user');
         }
 
         public function oneByPermalink($pPermalink)
@@ -19,25 +22,22 @@ namespace app\main\models
             return $this->one(Query::condition()->andWhere("permalink_post", Query::EQUAL, $pPermalink));
         }
 
-        public function submit($pData)
+        public function share($pData)
         {
             $pData['added_date_post'] = "NOW()";
             $pData['id_user'] = AuthenticationHandler::$data['id_user'];
             $pData['status_post'] = 1;
             $pData['permalink_post'] = $this->generatePermalink();
             $id_tags = array();
-            if(isset($pData['tags_post']))
+            if(isset($pData['tags_post'])&&!empty($pData['tags_post']))
             {
                 $tags = explode(",",$pData['tags_post']);
-                if(!empty($tags))
+                foreach($tags as &$t)
                 {
-                    foreach($tags as &$t)
-                    {
-                        $t = trim($t);
-                    }
-                    $m = new ModelCategory();
-                    $id_tags = $m->prepareCategories($tags);
+                    $t = trim($t);
                 }
+                $m = new ModelCategory();
+                $id_tags = $m->prepareCategories($tags);
                 unset($pData['tags_post']);
             }
             $this->insert($pData);
@@ -61,44 +61,13 @@ namespace app\main\models
 
         public function retrieveDataFrom($pUrl)
         {
+            $sc = new SimpleScraper($pUrl);
+
             $data = array(
-                "title"=>"",
-                "text"=>"",
-                "images"=>array()
+                "title"=>$sc->getTitle(),
+                "text"=>$sc->getDescription(),
+                "images"=>$sc->getImages()
             );
-
-            $html = Request::load($pUrl);
-
-            if(preg_match('/<title[^>]*>([^<]+)/', $html, $matches))
-            {
-                $data["title"] = $matches[1];
-            }
-            else
-            {
-                if(preg_match('<h1[^>]*>(.*)<\/h1>', $html, $matches))
-                {
-                    $data["title"] = $matches[1];
-                }
-            }
-
-            if(preg_match('/<meta\s*name="description"\s*content="([^"]+)/', $html, $matches))
-            {
-                $data["text"] = $matches[1];
-            }
-            else
-            {
-                $data["text"] = $data["title"];
-            }
-
-            if(preg_match_all('/<img src=(\'|")([^\'"]+\.(jpg|png|jpeg|gif))(\'|")/', $html, $matches))
-            {
-                $data["images"] = array_unique($matches[2]);
-            }
-
-            if(preg_match('/<meta property="og:image" content="([^"]+)/', $html, $matches))
-            {
-                array_unshift($data["images"],$matches[1]);
-            }
 
             return $data;
         }
@@ -108,38 +77,31 @@ namespace app\main\models
             if($pFirstDay == null)
                 $pFirstDay = date('Y-m-d');
 
-            $cond = Query::condition()->andWhere('added_date_post', Query::LOWER_EQUAL, $pFirstDay.' 23:59:59')
-                ->andWhere('added_date_post', Query::UPPER, 'DATE_SUB("'.$pFirstDay.'", INTERVAL '.$pDaysCount.' DAY)', false)
-                ->andWhere('status_post', Query::EQUAL, 1)
-                ->order('added_date_post', 'DESC');
+            $days = array();
 
             if(!is_null($pCat))
             {
                 $this->addJoinOnSelect('post_category b', ' JOIN ', 'main_post.id_post = b.id_post');
                 $this->addJoinOnSelect('main_category c', ' JOIN ', 'c.id_category = b.id_category');
-                $cond->andWhere('c.permalink_category', Query::EQUAL, $pCat);
-            }
-
-            $posts = $this->all($cond, 'main_post.*');
-
-            $days = array();
-            foreach($posts as $p)
-            {
-                $date = explode(' ', $p['added_date_post']);
-                $date = $date[0];
-                $date = date('l, dS F Y', strtotime($date));
-                if(!isset($days[$date]))
-                    $days[$date] = array();
-                array_unshift($days[$date], $p);
             }
 
             for($i = 0; $i<$pDaysCount; $i++)
             {
                 $ts = strtotime($pFirstDay) - ($i * 24 * 60 * 60);
+
+                $cond = Query::condition()->andWhere('added_date_post', Query::LIKE, date('Y-m-d', $ts).'%')
+                    ->andWhere('status_post', Query::EQUAL, 1)
+                    ->order('added_date_post', 'DESC');
+
+                if(!is_null($pCat))
+                {
+                    $cond->andWhere('c.permalink_category', Query::EQUAL, $pCat);
+                }
+
                 $date = date('l, dS F Y', $ts);
-                if(!isset($days[$date]))
-                    $days[$date] = array();
+                $days[$date] = $this->all($cond, 'main_post.*');
             }
+
             return $days;
         }
 

@@ -33,12 +33,12 @@
 				"action":"register"
 			}
 		},
-		"submit":
+		"share":
 		{
 			"GET|POST":
 			{
 				"controller":"post",
-				"action":"submit"
+				"action":"share"
 			}
 		},
 		"post/scrap":
@@ -59,6 +59,18 @@
 			{
 				"controller":"post",
 				"action":"view"
+			}
+		},
+		"post/{$permalink}/out":
+		{
+			"parameters":
+			{
+				"permalink":"[a-zA-Z0-9\\-\\_]{16}"
+			},
+			"GET":
+			{
+				"controller":"post",
+				"action":"out"
 			}
 		},
 		"profil/{$pseudo_user}":
