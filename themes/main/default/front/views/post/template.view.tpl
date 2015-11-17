@@ -12,6 +12,9 @@
 			</div>
 		</div>
 	</div>
+	{if !$user_is.USER}
+	<div class="signin_comment">Please <a href="sign-in" rel="Dabox[async:sign-in]">{$dictionary.global.generics.signin}</a> to comment.</div>
+	{/if}
 </div>
 <div class="comments">
 

@@ -31,6 +31,18 @@
 			"core/autocomplete/Autocomplete.js"
 		]
 	},
+	"Dabox":
+	{
+		"need":["Request", "M4Tween"],
+		"css":
+		[
+			"dabox/Dabox.css"
+		],
+		"javascript":
+		[
+			"dabox/Dabox.js"
+		]
+	},
     "Form":
     {
         "javascript":

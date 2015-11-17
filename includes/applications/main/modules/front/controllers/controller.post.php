@@ -67,6 +67,8 @@ namespace app\main\controllers\front
             $m = new ModelPost();
             $post = $m->oneByPermalink($_GET["permalink"]);
 
+            Autoload::addComponent('Dabox');
+
             $this->setTitle($post['title_post']);
 
             $this->addContent("post", $post);

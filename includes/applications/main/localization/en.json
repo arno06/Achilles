@@ -6,6 +6,10 @@
     }
 }, "terms": {
     "global": {
+		"generics":
+		{
+			"signin":"sign-in"
+		},
         "forms": {
             "inputRequire": "Mandatory field",
             "inputsRequire": "Mandatory fields",
